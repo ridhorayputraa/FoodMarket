@@ -38,7 +38,6 @@ public function user(){
 
     // epoch untuk FE
     public function getUpdatedAtAttribute($value) {
-        // membuat assesor untuk mengakses file yang sudah ada
         return Carbon::parse($value)->timestamp;
     }
 }

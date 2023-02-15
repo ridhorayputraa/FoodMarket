@@ -67,6 +67,16 @@ class UserController extends Controller
                 'password' => $this->passwordRules()
             ]);
 
+            User::create([
+                'name' => $request-> name,
+                'email' => $request->email,
+                'address' => $request->address,
+                'houseNumber' => $request->houseNumber,
+                'phoneNumber' => $request->phoneNumber,
+                'city' => $request->city,
+                'password' => Hash::make($request->password),
+            ]);
+
         }catch(Exception $error){
 
         }

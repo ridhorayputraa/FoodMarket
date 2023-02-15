@@ -89,7 +89,10 @@ class UserController extends Controller
             ]);
 
         }catch(Exception $error){
-
+            return ResponseFormatter::error([
+                'message' => 'something went wrong',
+                'error' => $error
+            ], 'Authentication Failed', 500);
         }
 
     }

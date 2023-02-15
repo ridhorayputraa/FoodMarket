@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Actions\Fortify\PasswordValidationRules;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -12,6 +13,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+    // Untuk validasi password Register
+    use PasswordValidationRules
+
+
     //
     public function login(Request $request){
         // gunakan try catcth untuk konjdisi terpenuhi/tidak
@@ -51,5 +57,19 @@ class UserController extends Controller
                 'error' => $error
             ], 'Authentication Failed', 500);
         }
+    }
+
+    public function register(Request $request){
+        try{
+            $request->validate([
+                'name' => ['required', 'string', 'max:20'],
+                'email' => ['required', 'string', 'email', 'max:20', 'unique:users'],
+                'password' => $this->passwordRules()
+            ]);
+
+        }catch(Exception $error){
+
+        }
+
     }
 }

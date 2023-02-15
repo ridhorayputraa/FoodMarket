@@ -77,6 +77,10 @@ class UserController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
+
+            // setUser
+            $user = User::where('email', $request->email)->first();
+
         }catch(Exception $error){
 
         }

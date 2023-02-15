@@ -77,9 +77,16 @@ class UserController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
-
             // setUser
             $user = User::where('email', $request->email)->first();
+
+            // sekalian login berikan token
+            $tokenResult = $user->createToken('authToken')->plainTextToken;
+            return ResponseFormatter::success([
+                'access_token' => $tokenResult,
+                'token_type' => 'Bearer',
+                'user' => $user
+            ]);
 
         }catch(Exception $error){
 

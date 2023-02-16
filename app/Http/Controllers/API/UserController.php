@@ -106,6 +106,13 @@ class UserController extends Controller
 
     }
 
+
+    // Mengambil Data profile user yang sedang Login
+    public function fetch(){
+        return ResponseFormatter::success($request->user(), 'Data profile user berhasil di ambil');
+    }
+
+
     // Update Profile / apabila ingin mengganti profile yang sudah ada
     public function UpdateProfile(Request $request){
         // ambilSemuaDatanya ke Request
@@ -116,5 +123,6 @@ class UserController extends Controller
 
         return ResponseFormatter::success($user, 'Profile Updated');
     }
+
 
 }

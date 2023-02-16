@@ -96,4 +96,14 @@ class UserController extends Controller
         }
 
     }
+
+
+    public function logout(Request $request){
+        // Ambil siapa yang sudah login
+        $token = $request->user()->currentAccessToken()->delete();
+
+        return ResponseFormatter::success($token, 'Token Revoked');
+
+    }
+
 }

@@ -140,7 +140,17 @@ class UserController extends Controller
         }
         // apakah file nya ada?
         if($request->file('file')){
-            
+            // Upload file nya
+            $file = $request->file->store('assets/user', 'public');
+
+            // Simpan foto ke database (url nya)
+            // gambarnya tetap di folder, hanya akan menyimpan link nya saja
+
+            // panggil user nya
+            $user = Auth::user();
+            // ubah field nya dengan data yang sudah di upload
+            $user->profile_photo_path = $file;
+            $user->update();
         }
     }
 

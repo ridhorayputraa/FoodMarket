@@ -151,6 +151,8 @@ class UserController extends Controller
             // ubah field nya dengan data yang sudah di upload
             $user->profile_photo_path = $file;
             $user->update();
+
+            return ResponseFormatter::success([$file], 'File successfully uploaded');
         }
     }
 

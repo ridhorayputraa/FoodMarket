@@ -129,6 +129,19 @@ class UserController extends Controller
         $validator = Validator::make($request->all() ,[
             'file' => 'required|image|max:2048'
         ]);
+
+        // Jika gagal
+        if($validator->fails()){
+            return ResponseFormatter::error(
+                ['error' => $validator->errors()],
+                'Update photo fials',
+                401
+            );
+        }
+        // apakah file nya ada?
+        if($request->file('file')){
+            
+        }
     }
 
 }

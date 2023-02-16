@@ -106,4 +106,15 @@ class UserController extends Controller
 
     }
 
+    // Update Profile / apabila ingin mengganti profile yang sudah ada
+    public function UpdateProfile(Request $request){
+        // ambilSemuaDatanya ke Request
+        $data = $request->all();
+        // Ambil semua field
+        $user = Auth::user();
+        $user->update($data);
+
+        return ResponseFormatter::success($user, 'Profile Updated');
+    }
+
 }

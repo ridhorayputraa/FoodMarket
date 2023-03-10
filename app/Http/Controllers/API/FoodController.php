@@ -59,5 +59,10 @@ class FoodController extends Controller
             $food->where('name', 'like', '%' . $name . '%');
         }
 
+
+        // Filtering berdasarkan types
+        if($types){
+            $food->where('types', 'like', '%' . $types . '%');
+        }
     }
 }

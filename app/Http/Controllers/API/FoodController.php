@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use App\Models\Food;
 use Illuminate\Http\Request;
 
 class FoodController extends Controller
@@ -28,5 +30,24 @@ class FoodController extends Controller
         // Filtering berdasarkan rating
         $rate_from = $request->input('rate_from');
         $rate_to = $request->input('rate_to');
+
+        // pengambilan data berdasarkan ID
+        if($id){
+         $food = Food::find($id);
+
+         if($food){
+            return ResponseFormatter::success(
+                $food,
+                'Data produk berhasil diambil'
+            );
+         }else{
+            return ResponseFormatter::error(
+                null,
+                'Data produk tidak di temukan',
+                404
+            );
+         }
+
+        }
     }
 }

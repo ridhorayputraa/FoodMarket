@@ -49,5 +49,15 @@ class FoodController extends Controller
          }
 
         }
+
+        // Fetching sisanya
+        // siapkan query nya dulu
+        $food = Food::query();
+
+        // Filtering berdasarkan nama
+        if($name){
+            $food->where('name', 'like', '%' . $name . '%');
+        }
+
     }
 }

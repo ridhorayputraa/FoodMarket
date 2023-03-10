@@ -24,6 +24,9 @@ class FoodController extends Controller
         $price_from = $request->input('price_from');
         $price_to = $request->input('price_to');
 
-        
+
+        // Filtering berdasarkan rating
+        $rate_from = $request->input('rate_from');
+        $rate_to = $request->input('rate_to');
     }
 }

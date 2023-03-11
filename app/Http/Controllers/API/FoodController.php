@@ -73,6 +73,15 @@ class FoodController extends Controller
         if($price_to){
             $food->where('price', '<=', $price_to);
         }
-        
+
+            // Filtering berdasarkan Rating
+        if($rate_from){
+            $food->where('rate' , '>=', $rate_from);
+        }
+
+        if($rate_to){
+            $food->where('rate', '<=', $rate_to);
+        }
+
     }
 }

@@ -64,5 +64,15 @@ class FoodController extends Controller
         if($types){
             $food->where('types', 'like', '%' . $types . '%');
         }
+
+        // Filtering berdasarkan harga
+        if($price_from){
+            $food->where('price' , '>=', $price_from);
+        }
+
+        if($price_to){
+            $food->where('price', '<=', $price_to);
+        }
+        
     }
 }

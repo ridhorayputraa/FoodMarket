@@ -51,6 +51,7 @@ class FoodController extends Controller
         }
 
         // Fetching sisanya
+        // untuk query yang di luar ID
         // siapkan query nya dulu
         $food = Food::query();
 

@@ -57,13 +57,13 @@ class TransactionController extends Controller
 
         // Filtering berdasarkan status
         if($status){
-            $transaction->where('price' , '>=', $price_from);
+            $transaction->where('status', $status);
         }
 
 
         return ResponseFormatter::success(
             $transaction->paginate($limit),
-            'Data list produk berhasil di ambil'
+            'Data list transaksi berhasil di ambil'
         );
 
     }

@@ -67,4 +67,16 @@ class TransactionController extends Controller
         );
 
     }
+
+    // API Transaksi Update
+    public function update(Request $request, $id){
+        $transaction=  Transaction::findOrFail($id);
+
+        // update data setelah di ambil
+        $transaction->update($request->all());
+        return ResponseFormatter::success(
+            $transaction,
+            'Transaksi berhasil di perbarui'
+        );
+    }
 }

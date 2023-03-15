@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -45,39 +46,23 @@ class TransactionController extends Controller
 
         // siapkan query nya dulu menggunakan where, untuk mengambil
         // data yang spesifik hanya yang login
-        $transaction = Tra::;
+        $transaction = Transaction::with(['food', 'user'])
+        ->where('user_id', Auth::user()->id);
 
-        // Filtering berdasarkan nama
-        if($name){
-            $food->where('name', 'like', '%' . $name . '%');
+        // Filtering berdasarkan nama Food id
+        if($food_id){
+        // bisa dikatakan begini 'vape_id = $vape_id'
+            $transaction->where('food_id', $food_id);
         }
 
-
-        // Filtering berdasarkan types
-        if($types){
-            $food->where('types', 'like', '%' . $types . '%');
+        // Filtering berdasarkan status
+        if($status){
+            $transaction->where('price' , '>=', $price_from);
         }
 
-        // Filtering berdasarkan harga
-        if($price_from){
-            $food->where('price' , '>=', $price_from);
-        }
-
-        if($price_to){
-            $food->where('price', '<=', $price_to);
-        }
-
-            // Filtering berdasarkan Rating
-        if($rate_from){
-            $food->where('rate' , '>=', $rate_from);
-        }
-
-        if($rate_to){
-            $food->where('rate', '<=', $rate_to);
-        }
 
         return ResponseFormatter::success(
-            $food->paginate($limit),
+            $transaction->paginate($limit),
             'Data list produk berhasil di ambil'
         );
 

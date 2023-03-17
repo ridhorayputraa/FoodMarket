@@ -8,6 +8,7 @@ use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
+use Midtrans\Config;
 
 class TransactionController extends Controller
 {
@@ -102,5 +103,32 @@ class TransactionController extends Controller
             // akan di update setelah nembak mitrans
         ]);
 
+        // Konfigurasi Midtrans
+        Config::$serverKey = config('services.midtrans.serverKey');
+        Config::$isProduction = config('services.midtrans.isProduction');
+        Config::$isSanitized = config('services.midtrans.isSanitized');
+        Config::$is3ds = config('services.midtrans.is3ds');
+
+        // Panggil transaksi yang tadi dibuat
+        $transaction = Transaction::with(['food', 'user'])->find($transaction->id);
+
+        // Membuat Transaksi Midtrans
+        $midtrans = [
+            // referensi datanya ada di 'snap-docs.midtrans.com->Request Body
+            'transaction_details' => [
+                'order_id' => $transaction->id,
+                'gross_amount' => (int) $transaction->total,
+            ],
+            'customer_details' => [
+                'first_name' => $transaction->user->name,
+                'email' => $transaction->user->email,
+            ],
+            'enable_payments' => ['gopay', 'bank_transfer'],
+            // enable payment isi untuk payment apa aja 
+            'vtweb' => []
+        ];
+        // Memanggil midtrans
+
+        // Mengembalikan Data ke API
     }
 }

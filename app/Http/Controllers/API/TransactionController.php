@@ -80,4 +80,12 @@ class TransactionController extends Controller
             'Transaksi berhasil di perbarui'
         );
     }
+
+    // API Checkout dengan midtrans
+    public function checkout(Request $request){
+        $request->validate([
+            'food_id' => 'required|exists:food,id'
+            // arahin ke table food dan cek id nya ada atau nggak
+        ]);
+    }
 }

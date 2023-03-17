@@ -73,6 +73,7 @@ class TransactionController extends Controller
         $transaction=  Transaction::findOrFail($id);
 
         // update data setelah di ambil
+        // akan di jalankan bila ada yang transaksi
         $transaction->update($request->all());
         return ResponseFormatter::success(
             $transaction,

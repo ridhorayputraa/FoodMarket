@@ -73,6 +73,8 @@ class MidtransController extends Controller
         // Simpan Transaksi
         $transaction->save();
 
-        
+        // Jangan lupa masukan midtrans URL callback untuk menerima transaksinya
+        // foodmark.id/api/midtrans/callback
+
     }
 }

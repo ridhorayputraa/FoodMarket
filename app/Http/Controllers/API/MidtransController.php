@@ -71,5 +71,8 @@ class MidtransController extends Controller
         }
 
         // Simpan Transaksi
+        $transaction->save();
+
+        
     }
 }

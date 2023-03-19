@@ -30,7 +30,45 @@ class MidtransController extends Controller
 
         // Cari transaksi berdasarkan ID
         $transaction = Transaction::findOrFail($order_id);
+
         // Handle Notifikasi status Midtrans
+        if($status == 'capture')
+        {
+            if($type == 'credit_card')
+            {
+                if($fraud == 'challenge')
+                // status transaksi
+                {
+                    $transaction->status = 'PENDING';
+                }else
+                {
+                    $transaction->status = 'SUCCESS';
+                }
+            }
+        }
+        else if($status == 'settlement')
+        // Settlement sudah terbayar
+        {
+            $transaction->status = 'SUCCESS';
+        }
+
+        else if($status == 'pending')
+        {
+            $transaction->status = 'PENDING';
+        }
+
+        else if($status == 'deny')
+        {
+            $transaction->status = 'CANCELLED';
+        }
+
+        else if($status == 'expire'){
+            $transaction->status = 'CANCELLED';
+        }
+
+        else if($status == 'cancel'){
+            $transaction->status = 'CANCELLED';
+        }
 
         // Simpan Transaksi
     }

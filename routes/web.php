@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\MidtransController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,23 +15,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Home Page
 Route::get('/', function () {
-    return view('welcome');
+    // arahkan ke yang sudah di bikin dibawah
+    return redirect()->route('admin-dashboard');
 });
 
-Route::get('/debug-sentry', function () {
-    throw new Exception('My first Sentry error!');
-});
+// Dashboard
+// Perlu route prefix agar semua route ini depannya ada dashboard nya
+Route::prefix('dashboard')
+    ->middleware(['auth:sanctum', 'admin'])
+    ->group(function() {
+        // Routes untuk admin taro disini
+        Route::get('/', [DashboardController::class, 'index'])
+       ->name('admin-dashboard');
+        // Kasih nama routingnya
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+    });
+
 
 // Midtrans Related
 Route::get('midtrans/success', [MidtransController::class, 'success']);

@@ -15,10 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 // Home Page
 Route::get('/', function () {
     // arahkan ke yang sudah di bikin dibawah
-    return redirect()->route('admin-dashboard');
+    return redirect()->route('dashboard');
 });
 
 // Dashboard
@@ -28,12 +29,10 @@ Route::prefix('dashboard')
     ->group(function() {
         // Routes untuk admin taro disini
         Route::get('/', [DashboardController::class, 'index'])
-       ->name('admin-dashboard');
+       ->name('dashboard');
         // Kasih nama routingnya
 
     });
-
-
 // Midtrans Related
 Route::get('midtrans/success', [MidtransController::class, 'success']);
 Route::get('midtrans/unfinish', [MidtransController::class, 'unfinish']);

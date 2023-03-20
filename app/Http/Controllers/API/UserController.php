@@ -16,7 +16,7 @@ class UserController extends Controller
 {
 
     // Untuk validasi password Register
-    use PasswordValidationRules
+    use PasswordValidationRules;
 
 
     //
@@ -34,8 +34,8 @@ class UserController extends Controller
 
             if(!Auth::attempt($credentials)){
                 return ResponseFormatter::error([
-                    'message' => 'Unauthorized'
-                ], 'Authentication Failed', 500 );
+                    'message' => 'Unauthorized Jelek'
+                ], 'Authentication Failed Jelek', 500 );
             }
 
             // Jika hash tidak sesuai maka beri error
@@ -56,7 +56,7 @@ class UserController extends Controller
             return ResponseFormatter::error([
                 'message' => 'Something went wrong',
                 'error' => $error
-            ], 'Authentication Failed', 500);
+            ], 'Authentication Failed', 5000);
         }
     }
 

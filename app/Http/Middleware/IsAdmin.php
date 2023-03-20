@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IsAdmin
 {
@@ -16,6 +17,13 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        // Apakah authentikasi itu adlaah user yang sedang login
+        // dan user tersebut roles nya adalah admin
+        if(Auth::user() && Auth::user()->roles == "ADMIN"){
+            // maka masukan dashboard
+            return $next($request);
+        }
+
+        return redirect('/');
     }
 }

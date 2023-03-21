@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\MidtransController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,7 @@ Route::prefix('dashboard')
         Route::get('/', [DashboardController::class, 'index'])
        ->name('dashboard');
         // Kasih nama routingnya
+        Route::resource('users', UserController::class);
 
     });
 // Midtrans Related

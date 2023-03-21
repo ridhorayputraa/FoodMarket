@@ -38,10 +38,9 @@
                                      font-bold py-2 px-4 mx-2 rounded
                                      ">Edit</a>
                                      {{-- Form Hapus Untuk Delete--}}
-                                     <form action="{{ route('users.destroy', $item->id) }}"
-                                        method="POST" class="inline-block" >
+                                     <form action="{{ route('users.destroy', $item->id) }}"  method="POST" class="inline-block">
                                        {!! method_field('delete') . csrf_field() !!}
-                                    <button class="bg-red-500 hover:bg-red-700 text-white
+                                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white
                                     font-bold py-2 px-4 mx-2 rounded
                                      ">
                                      Delete
@@ -50,10 +49,18 @@
                             </td>
                         </tr>
                         @empty
-
+                            <tr>
+                                <td colspan="5" class="border text-center p-5">
+                                    Data Tidak Ditemukan
+                                </td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>
+            </div>
+            {{-- Buat Link/Pagination --}}
+            <div class="text-center mt-5">
+                {{ $user->links() }}
             </div>
         </div>
     </div>

@@ -11,9 +11,40 @@
                 <a href="{{ route('users.create') }}"class="bg-green-500 hover:bg-green-700 text-white
                 font-bold py-2 px-4 rounded " >
                  + Create User
-            </a>
+                 </a>
             </div>
             {{-- Untuk Table --}}
+            <div class="bg-white">
+                <table class="table-auto w-full">
+                    <thead>
+                        <tr>
+                            <th class="border px-6 py-4">ID</th>
+                            <th class="border px-6 py-4">Name</th>
+                            <th class="border px-6 py-4">Email</th>
+                            <th class="border px-6 py-4">Roles</th>
+                            <th class="border px-6 py-4">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($user as $item )
+                        <tr>
+                            <td class="border px-6 py-4">{{ $item->id }}</td>
+                            <td class="border px-6 py-4">{{ $item->name }}</td>
+                            <td class="border px-6 py-4">{{ $item->email }}</td>
+                            <td class="border px-6 py-4">{{ $item->roles }}</td>
+                            <td class="border px-6 py-4 text-center">
+                                <a href="{{ route('users.edit', $item->id) }}"
+                                     class="inline-block bg-blue-500 hover:bg-blue-700 text-white
+                                     font-bold py-2 px-4 mx-2 rounded
+                                     ">Edit</a>
+                            </td>
+                        </tr>
+                        @empty
+
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </x-app-layout>

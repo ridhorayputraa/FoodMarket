@@ -37,6 +37,16 @@
                                      class="inline-block bg-blue-500 hover:bg-blue-700 text-white
                                      font-bold py-2 px-4 mx-2 rounded
                                      ">Edit</a>
+                                     {{-- Form Hapus Untuk Delete--}}
+                                     <form action="{{ route('users.destroy', $item->id) }}"
+                                        method="POST" class="inline-block" >
+                                       {!! method_field('delete') . csrf_field() !!}
+                                    <button class="bg-red-500 hover:bg-red-700 text-white
+                                    font-bold py-2 px-4 mx-2 rounded
+                                     ">
+                                     Delete
+                                    </button>
+                                    </form>
                             </td>
                         </tr>
                         @empty

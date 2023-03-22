@@ -43,7 +43,12 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         // MENGAMBIL DATA SEMUA REQUEST DARI VALIDASI USERREQUEST
+        $data = $request->all();
+        $data['profile_photo_path'] = $request->file('profile_photo_path')->store('assets/user', 'public');
 
+        User::create($data);
+
+        return redirect()->route('users.index');
     }
 
     /**

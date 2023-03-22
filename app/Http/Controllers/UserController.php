@@ -84,9 +84,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        // ganti id menjadi User agar tidak panggil panggil lagi
+       $data = $request->all();
+        if($request->file('profile_photo_path')){
+              $data['profile_photo_path'] = $request->file('profile_photo_path')->store('assets/user', 'public');
+        }
+
+        // Assign kembali value nya
+        $user->update($data);
+
+        return redirect()->route('users.index');
+
     }
 
     /**

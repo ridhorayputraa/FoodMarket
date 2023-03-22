@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {!! __('User &raquo; Create') !!}
+            User &raquo; {{ $item->name }} &raquo; Edit
         </h2>
     </x-slot>
 
@@ -24,8 +24,11 @@
                         </div>
                     </div>
                 @endif
-                <form class="w-full" action="{{ route('users.store') }}" method="post" enctype="multipart/form-data">
+                {{-- arahkan route nya ke logic(uodate) Edit --}}
+                <form class="w-full" action="{{ route('users.update', $item->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    {{-- Method PUT karna kita ingin update data --}}
+                    @method('PUT')
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full px-3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">

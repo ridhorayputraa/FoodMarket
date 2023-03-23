@@ -28,9 +28,11 @@ class FoodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //  Untuk C -> Create
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -39,6 +41,8 @@ class FoodController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    //  Untuk C -> Create tapi Logic nya
     public function store(Request $request)
     {
         //

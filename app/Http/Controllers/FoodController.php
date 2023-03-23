@@ -32,7 +32,7 @@ class FoodController extends Controller
     //  Untuk C -> Create
     public function create()
     {
-        
+        return view('food.create');
     }
 
     /**
@@ -45,7 +45,14 @@ class FoodController extends Controller
     //  Untuk C -> Create tapi Logic nya
     public function store(Request $request)
     {
-        //
+        // MENGAMBIL DATA SEMUA REQUEST DARI VALIDASI
+        //  USERREQUEST
+        $data = $request->all();
+        $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
+
+        Food::create($data);
+
+        return redirect()->route('food.index');
     }
 
     /**

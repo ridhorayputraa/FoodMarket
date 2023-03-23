@@ -27,6 +27,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
+            // rules dari userController API
             'name' => ['required', 'string', 'max:20'],
             'email' => ['required', 'string', 'email', 'max:20', 'unique:users'],
             'password' => $this->passwordRules(),

@@ -1,66 +1,52 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Transaction') }}
+            Transaction &raquo; {{ $item->food->name }} by {{ $item->user->name }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            {{-- Karna transaksi hanya dibikin di front end maka hapus create nya --}}
-            {{-- Cuman butuh munculin datanya doang --}}
+            <div class="w-full md:w-1/6 px-4 mb-4 md:mb-8">
+                    <img src="{{ $item->food->picturePath }}" alt="" class="w-full rounded">
+                </div>
+                <div class="w-full md:w-5/6 px-4 mb-4 md:mb-0">
+                 <div class="flex flex-wrap mb-3">
+                        <div class="w-2/6">
+                            <div class="text-sm">Product Name</div>
+                            <div class="text-xl font-bold">{{ $item->food->name }}</div>
+                        </div>
+                        <div class="w-1/6">
+                            <div class="text-sm">Quantity</div>
+                            <div class="text-xl font-bold">{{ number_format($item->quantity) }}</div>
+                        </div>
+                        <div class="w-1/6">
+                            <div class="text-sm">Total</div>
+                            <div class="text-xl font-bold">{{ number_format($item->total) }}</div>
+                        </div>
+                        <div class="w-1/6">
+                            <div class="text-sm">Status</div>
+                            <div class="text-xl font-bold">{{ $item->status }}</div>
+                        </div>
+                </div>
 
-            {{-- Untuk Table --}}
-            <div class="bg-white">
-                <table class="table-auto w-full">
-                    <thead>
-                        <tr>
-                            <th class="border px-6 py-4">ID</th>
-                            <th class="border px-6 py-4">Food</th>
-                            <th class="border px-6 py-4">User</th>
-                            <th class="border px-6 py-4">Quantity</th>
-                            <th class="border px-6 py-4">Total</th>
-                            <th class="border px-6 py-4">Status</th>
-                            <th class="border px-6 py-4">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($transactions as $item )
-                        <tr>
-                            <td class="border px-6 py-4">{{ $item->id }}</td>
-                            {{-- masuk ke relasi food dulu --}}
-                            <td class="border px-6 py-4">{{ $item->food->name }}</td>
-                            <td class="border px-6 py-4">{{ $item->user->name }}</td>
-                            <td class="border px-6 py-4">{{ $item->quantity }}</td>
-                            {{-- Price nya di ubah jadi number format agar lebih rapih --}}
-                            <td class="border px-6 py-4">{{ number_format($item->total) }}</td>
-                            <td class="border px-6 py-4">{{ $item->status }}</td>
-                            <td class="border px-6 py-4 text-center">
-                                <a href="{{ route('transactions.edit', $item->id) }}"
-                                     class="inline-block bg-blue-500 hover:bg-blue-700 text-white
-                                     font-bold py-2 px-4 mx-2 rounded
-                                     ">Edit</a>
-                                     {{-- Form Hapus Untuk Delete--}}
-                                     <form action="{{ route('transactions.destroy', $item->id) }}"  method="POST" class="inline-block">
-                                       {!! method_field('delete') . csrf_field() !!}
-                                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white
-                                    font-bold py-2 px-4 mx-2 rounded
-                                     ">
-                                     Delete
-                                    </button>
-                                    </form>
-                            </td>
-                        </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="border text-center p-5">
-                                    Data Tidak Ditemukan
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                {{-- Kolom User --}}
+                  <div class="flex flex-wrap mb-3">
+                        <div class="w-2/6">
+                            <div class="text-sm">User Name</div>
+                            <div class="text-xl font-bold">{{ $item->user->name }}</div>
+                        </div>
+                        <div class="w-3/6">
+                            <div class="text-sm">Email</div>
+                            <div class="text-xl font-bold">{{ $item->user->email }}</div>
+                        </div>
+                        <div class="w-1/6">
+                            <div class="text-sm">City</div>
+                            <div class="text-xl font-bold">{{ $item->user->city }}</div>
+                        </div>
+                </div>
             </div>
+
             {{-- Buat Link/Pagination --}}
             <div class="text-center mt-5">
                 {{ $transactions->links() }}

@@ -61,6 +61,35 @@
                             <div class="text-xl font-bold">{{ $item->user->phoneNumber }}</div>
                         </div>
                 </div>
+
+                    {{-- Kolom Payment --}}
+                  <div class="flex flex-wrap mb-3">
+                        <div class="w-5/6">
+                            <div class="text-sm">Payment URL</div>
+                            <div class="text-lg">
+                                {{-- sudah tersimpan di database tinggal manggil aja --}}
+                                <a href="{{ $item->payment_url }}">{{ $item->payment_url }}</a>
+                            </div>
+                        </div>
+                        <div class="w-1/6">
+                          <div class="text-sm mb-1">Change Status</div>
+
+                          <a href="{{ route('transactions.changeStatus', ['id' => $item->id, 'status' => 'ON_DELIVERY']) }}"
+                           class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 rounded block text-center w-full mb-1" >
+                            On Delivery
+                          </a>
+
+                          <a href="{{ route('transactions.changeStatus', ['id' => $item->id, 'status' => 'ON_DELIVERY']) }}"
+                           class="bg-green-500 hover:bg-green-700 text-white font-bold px-2 rounded block text-center w-full mb-1" >
+                            Delivered
+                          </a>
+
+                          <a href="{{ route('transactions.changeStatus', ['id' => $item->id, 'status' => 'ON_DELIVERY']) }}"
+                           class="bg-red-500 hover:bg-red-700 text-white font-bold px-2 rounded block text-center w-full mb-1" >
+                            Cancelled
+                          </a>
+                        </div>
+                </div>
             </div>
 
             {{-- Buat Link/Pagination --}}

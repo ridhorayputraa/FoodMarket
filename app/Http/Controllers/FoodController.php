@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FoodRequest;
 use App\Models\Food;
 use Illuminate\Http\Request;
 
@@ -43,7 +44,7 @@ class FoodController extends Controller
      */
 
     //  Untuk C -> Create tapi Logic nya
-    public function store(Request $request)
+    public function store(FoodRequest $request)
     {
         // MENGAMBIL DATA SEMUA REQUEST DARI VALIDASI
         //  USERREQUEST
@@ -74,7 +75,9 @@ class FoodController extends Controller
      */
     public function edit(Food $food)
     {
-        //
+       return view('food.edit', [
+            'item' => $food
+       ]);
     }
 
     /**
@@ -84,7 +87,7 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Food $food)
+    public function update(FoodRequest $request, Food $food)
     {
         //
     }

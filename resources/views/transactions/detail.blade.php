@@ -7,7 +7,9 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="w-full md:w-1/6 px-4 mb-4 md:mb-8">
+          <div class="w-full rounded overflow-hidden shadow-lg px-6 py-6 bg-white">
+             <div class="flex flex-wrap -mx-4 -mb-4 md:mb-0">
+                 <div class="w-full md:w-1/6 px-4 mb-4 md:mb-8">
                     <img src="{{ $item->food->picturePath }}" alt="" class="w-full rounded">
                 </div>
                 <div class="w-full md:w-5/6 px-4 mb-4 md:mb-0">
@@ -79,23 +81,22 @@
                             On Delivery
                           </a>
 
-                          <a href="{{ route('transactions.changeStatus', ['id' => $item->id, 'status' => 'ON_DELIVERY']) }}"
+                          <a href="{{ route('transactions.changeStatus', ['id' => $item->id, 'status' => 'DELIVERED']) }}"
                            class="bg-green-500 hover:bg-green-700 text-white font-bold px-2 rounded block text-center w-full mb-1" >
                             Delivered
                           </a>
 
-                          <a href="{{ route('transactions.changeStatus', ['id' => $item->id, 'status' => 'ON_DELIVERY']) }}"
+                          <a href="{{ route('transactions.changeStatus', ['id' => $item->id, 'status' => 'CANCELLED']) }}"
                            class="bg-red-500 hover:bg-red-700 text-white font-bold px-2 rounded block text-center w-full mb-1" >
                             Cancelled
                           </a>
                         </div>
                 </div>
             </div>
+             </div>
+          </div>
 
-            {{-- Buat Link/Pagination --}}
-            <div class="text-center mt-5">
-                {{ $transactions->links() }}
-            </div>
+
         </div>
     </div>
 </x-app-layout>

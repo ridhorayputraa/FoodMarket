@@ -18,7 +18,7 @@ class TransactionController extends Controller
         // Tambahkan relasi nya
         $transaction = Transaction::with(['food', 'user'])->paginate(10);
         return view('transactions.index', [
-            'transaction' => $transaction
+            'transactions' => $transaction
         ]);
     }
 

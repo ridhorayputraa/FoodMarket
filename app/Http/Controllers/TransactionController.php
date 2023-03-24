@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Food;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
@@ -88,9 +89,12 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Transaction $transaction)
     {
-        //
+        // langsung di delete
+        $transaction->delete();
+        // kemudian redirect ke halaman dashboard
+        return redirect()->route('transactions.index');
     }
 
     // Buat MethodBaru

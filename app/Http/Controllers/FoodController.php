@@ -108,8 +108,11 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Food $food)
     {
-        //
+          // langsung di delete
+        $food->delete();
+        // kemudian redirect ke halaman dashboard
+        return redirect()->route('food.index');
     }
 }

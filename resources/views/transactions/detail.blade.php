@@ -45,6 +45,22 @@
                             <div class="text-xl font-bold">{{ $item->user->city }}</div>
                         </div>
                 </div>
+
+                   {{-- Kolom ALamat --}}
+                  <div class="flex flex-wrap mb-3">
+                        <div class="w-4/6">
+                            <div class="text-sm">Address</div>
+                            <div class="text-xl font-bold">{{ $item->user->address }}</div>
+                        </div>
+                        <div class="w-1/6">
+                            <div class="text-sm">Number</div>
+                            <div class="text-xl font-bold">{{ $item->user->houseNumber }}</div>
+                        </div>
+                        <div class="w-1/6">
+                            <div class="text-sm">Phone</div>
+                            <div class="text-xl font-bold">{{ $item->user->phoneNumber }}</div>
+                        </div>
+                </div>
             </div>
 
             {{-- Buat Link/Pagination --}}

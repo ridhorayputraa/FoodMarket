@@ -99,7 +99,7 @@ class FoodController extends Controller
         $food->update($data);
 
         return redirect()->route('food.index');
-
+ 
     }
 
     /**

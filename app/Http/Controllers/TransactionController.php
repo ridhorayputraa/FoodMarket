@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -11,9 +12,14 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        //
+        // Tambahkan relasi nya
+        $transaction = Transaction::with(['food', 'user'])->paginate(10);
+        return view('transactions.index', [
+            'transaction' => $transaction
+        ]);
     }
 
     /**

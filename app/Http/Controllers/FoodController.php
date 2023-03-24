@@ -90,6 +90,16 @@ class FoodController extends Controller
     public function update(FoodRequest $request, Food $food)
     {
         //
+         $data = $request->all();
+        if($request->file('picturePath')){
+              $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
+        }
+
+        // Assign kembali value nya
+        $food->update($data);
+
+        return redirect()->route('food.index');
+
     }
 
     /**

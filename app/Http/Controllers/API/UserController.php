@@ -56,7 +56,7 @@ class UserController extends Controller
             return ResponseFormatter::error([
                 'message' => 'Something went wrong',
                 'error' => $error
-            ], 'Authentication Failed', 5000);
+            ], 'Authentication Failed', 500);
         }
     }
 
@@ -68,8 +68,9 @@ class UserController extends Controller
                 'password' => $this->passwordRules()
             ]);
 
+            // Nanti langsung menambahkan field baru di Table User
             User::create([
-                'name' => $request-> name,
+                'name' => $request->name,
                 'email' => $request->email,
                 'address' => $request->address,
                 'houseNumber' => $request->houseNumber,
@@ -109,7 +110,7 @@ class UserController extends Controller
 
 
     // Mengambil Data profile user yang sedang Login
-    public function fetch(){
+    public function fetch(Request $request){
         return ResponseFormatter::success($request->user(), 'Data profile user berhasil di ambil');
     }
 

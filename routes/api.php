@@ -33,6 +33,10 @@ Route::get('transaction', [TransactionController::class, 'all']);
 Route::post('transaction/{id}', [TransactionController::class, 'update']);
 });
 
+
+
+
+
 // Kalo belum login taro di luar
 Route::post('login', [UserController::class, 'login']);
 Route::post('register', [UserController::class, 'register']);

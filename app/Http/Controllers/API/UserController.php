@@ -20,53 +20,78 @@ class UserController extends Controller
 
 
     //
-    public function login(Request $request){
-        // gunakan try catcth untuk konjdisi terpenuhi/tidak
-        try{
-        // Validasi
-            $request->validate([
-                'email' => 'email|required',
-                'password' => 'required'
-            ]);
+   public function login(Request $request)
+{
+    // Gunakan validator untuk validasi input
+    $validator = Validator::make($request->all(), [
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-            // Mengecek credentials (login)
-            $credentials = request(['email', 'password']);
-
-            if(!Auth::attempt($credentials)){
-                return ResponseFormatter::error([
-                    'message' => 'Unauthorized Jelek'
-                ], 'Authentication Failed Jelek', 500 );
-            }
-
-            // Jika hash tidak sesuai maka beri error
-            $user = User::where('email', $request->email)->first();
-            if(!Hash::check($request->password, $user->password, [])){
-                throw new \Exception('Invalid Credentials');
-            }
-
-            // Jika berhasil maka loginkan
-            $tokenResult = $user->createToken('authToken')->plainTextToken;
-            return  ResponseFormatter::success([
-                'access_token' => $tokenResult,
-                'token_type' => 'Bearer',
-                'user' => $user
-            ], 'Authenticated');
-
-        } catch(Exception $error){
-            return ResponseFormatter::error([
-                'message' => 'Something went wrong',
-                'error' => $error
-            ], 'Authentication Failed', 500);
-        }
+    // Jika validasi gagal, kembalikan respon dengan error
+    if ($validator->fails()) {
+        return ResponseFormatter::error(
+            ['message' => $validator->errors()],
+            'Validation Error',
+            422
+        );
     }
+
+    try {
+        // Mengecek credentials (login)
+        $credentials = $request->only('email', 'password');
+
+        if (!Auth::attempt($credentials)) {
+            return ResponseFormatter::error(
+                ['message' => 'Unauthorized'],
+                'Authentication Failed',
+                401
+            );
+        }
+
+        // Jika hash tidak sesuai, lempar exception InvalidCredentials
+        $user = User::where('email', $request->email)->first();
+        if (!Hash::check($request->password, $user->password)) {
+            throw new \Exception('Invalid Credentials');
+        }
+
+        // Jika berhasil, buat token dan kembalikan respon sukses
+        $tokenResult = $user->createToken('authToken')->plainTextToken;
+        return ResponseFormatter::success([
+            'access_token' => $tokenResult,
+            'token_type' => 'Bearer',
+            'user' => $user,
+        ], 'Authenticated');
+    } catch (\Exception $error) {
+        return ResponseFormatter::error(
+            ['message' => 'Something went wrong', 'error' => $error],
+            'Authentication Failed',
+            500
+        );
+    }
+}
 
     public function register(Request $request){
         try{
-            $request->validate([
-                'name' => ['required', 'string', 'max:20'],
-                'email' => ['required', 'string', 'email', 'max:20', 'unique:users'],
-                'password' => $this->passwordRules()
-            ]);
+                    $validator = Validator::make($request->all(), [
+                    'name' => 'required|string|max:20',
+                    'email' => 'required|string|email|max:20|unique:users',
+                    'password' => $this->passwordRules(),
+                    'address' => 'required|min:3',
+                    'houseNumber' => 'required|min:3',
+                    'phoneNumber' => 'required|min:3',
+                    ]);
+
+                if ($validator->fails()) {
+                    return ResponseFormatter::error(
+                     'Invalid email or missing required fields',
+                      $validator->errors()->messages()
+
+                    , 422);
+
+                }
+
+
 
             // Nanti langsung menambahkan field baru di Table User
             User::create([
